@@ -2,6 +2,7 @@
 public class Caching {
     private final int ARR_SIZE = 2 * 1024 * 1024;
     private final int[] testData = new int[ARR_SIZE];
+    private final int CACHELINE = 32;
 
     private void run() {
         System.out.println("Warmup started");
@@ -11,7 +12,7 @@ public class Caching {
         }
         System.out.println("Warmup finished");
         System.out.println("Line     Item");
-        for (int i = 0; i < 100; i += 1) {
+        for (int i = 0; i < CACHELINE; i += 1) {
             long t0 = System.nanoTime();
             touchEveryLine();
             long t1 = System.nanoTime();
@@ -20,7 +21,7 @@ public class Caching {
             long elEveryLine = t1 - t0;
             long elEveryItem = t2 - t1;
             double diff = elEveryItem - elEveryLine;
-            System.out.println(elEveryLine + " " + elEveryItem + " " + (diff * 100 / elEveryLine));
+            System.out.println(elEveryLine + " " + elEveryItem + " " + Math.ceil((diff * 100 / elEveryLine)));
         }
     }
 
