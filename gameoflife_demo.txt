@@ -1,0 +1,8 @@
+# get https://github.com/ebarlas/game-of-life-csp.git in <GOL_Folder>
+cd <GOL_Folder>/game-of-life-csp
+# build the project
+java -cp build/ gameoflife.Main patterns/puffer_train.txt 1600 800 0 235 91 10 91 true true
+jcmd <pid> Thread.dump_to_file -format=json -overwrite ~/Downloads/dump.json
+grep "Cell\.run" ~/Downloads/dump.json| wc -l
+grep "VirtualThread\.park" ~/Downloads/dump.json| wc -l
+
